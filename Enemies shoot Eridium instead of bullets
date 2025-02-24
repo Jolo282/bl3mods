@@ -1,0 +1,4 @@
+# Modify enemy weapons to shoot Eridium projectiles
+SparkPatchEntry,Hotfix
+MatchAll,Weapon,ProjectileData,,Game/Weapons/Enemy/GenericWeapon_Enemy
+SetProperty,Weapon,Projectile,Game/Weapons/Parts/Materials/Projectile_Eridium

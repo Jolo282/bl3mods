@@ -1,0 +1,4 @@
+# Modify Assault Trooper bullets to drop Eridium on impact
+SparkPatchEntry,Hotfix
+Match,AICharacter,CharacterName,AssaultTrooper
+SetProperty,Weapon,ImpactEffect,Game/Effects/Impact/Eridium_Drop

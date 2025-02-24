@@ -1,10 +1,5 @@
-# Modify the Eridian Fabricator to drop Eridium instead of guns
-SparkPatchEntry,(1,1,0,),/Game/Gear/Weapons/Pistol/EridianFabricator/_Design/InventoryBalance/InvBal_EridianFabricator.InvBal_EridianFabricator,BalancedItems,0,,(
-    (InventoryBalanceData=/Game/Pickups/Eridium/InvBal_Eridium_Single.InvBal_Eridium_Single,
-    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Pickups/Eridium/InvBal_Eridium_Single.InvBal_Eridium_Single"',
-    Weight=(BaseValueConstant=0.75)),
-    
-    (InventoryBalanceData=/Game/Pickups/Eridium/InvBal_Eridium_Stack.InvBal_Eridium_Stack,
-    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Pickups/Eridium/InvBal_Eridium_Stack.InvBal_Eridium_Stack"',
-    Weight=(BaseValueConstant=0.25))
+# Modify the Eridian Fabricator to shoot Eridium instead of guns
+SparkPatchEntry,(1,1,0,),/Game/Gear/Weapons/Pistol/EridianFabricator/_Design/PartSets/Part_EridianFabricator.Part_EridianFabricator,ItemPoolPartData,0,,(
+    (ItemPoolData=/Game/Pickups/Eridium/ItemPool_Eridium.ItemPool_Eridium,
+    ResolvedItemPoolData=ItemPoolData'"/Game/Pickups/Eridium/ItemPool_Eridium.ItemPool_Eridium"')
 )

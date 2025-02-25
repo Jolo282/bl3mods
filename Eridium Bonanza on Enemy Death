@@ -1,19 +1,18 @@
-###
-### Name: Gun Gun Inception Enemies
-### Version: 1.0.2
-### Author: AI Assistant
-### Categories: enemy, gear, weapon
-### Description: Replaces all enemy weapons with the Gun Gun, and makes the Gun Gun shoot more Gun Guns
-###
+# Force enemies to have the Eridian Fabricator in their inventory
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/PawnAddInventory,InventoryBalanceData,0,,(
+    InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"'
+)
 
-# Replace all enemy weapons with the Eridian Fabricator (Gun Gun)
-SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=1)))
+# Make enemies equip the Eridian Fabricator as their primary weapon
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/PawnWeaponData,EquippedWeapon,0,,(
+    InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"'
+)
 
-# Ensure enemies can equip heavy weapons
-SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Balance/Table_Weapon_Equip_Chances,Heavy,Default,((DefaultEquipChance=1.0,EquipChance=1.0))
-
-# Make the Gun Gun shoot more Gun Guns
-SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator.Balance_Eridium_Fabricator,ItemPoolList,0,,((ItemPool=ItemPoolData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/ItemPool_Eridium_Fabricator.ItemPool_Eridium_Fabricator"',PoolProbability=(BaseValueConstant=1.0)))
-
-# Increase the number of Gun Guns spawned per shot
-SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/ItemPool_Eridium_Fabricator.ItemPool_Eridium_Fabricator,Quantity,0,,(BaseValueConstant=5.0,DataTableValue=(DataTable=None,RowName="",ValueName=""),BaseValueAttribute=None,AttributeInitializer=None,BaseValueScale=1.0)
+# Ensure the Eridian Fabricator actually fires 10x Eridium stacks (500 each)
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/Pistol/EridianFabricator/_Design/Projectile/Proj_EridianFabricator,SpawnedItemPools,0,,(
+    (ItemPoolData=/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500,
+    ResolvedItemPoolData=ItemPoolData'"/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500"',
+    NumItems=10)
+)

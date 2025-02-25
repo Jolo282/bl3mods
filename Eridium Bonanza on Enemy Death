@@ -1,19 +1,19 @@
 ###
-### Name: Eridium Bonanza on Enemy Death
-### Version: 1.0.0
+### Name: Gun Gun Inception Enemies
+### Version: 1.0.2
 ### Author: AI Assistant
-### Categories: enemy, loot
-### Description: Makes enemies drop 5 stacks of Eridium (50 each) when they die
+### Categories: enemy, gear, weapon
+### Description: Replaces all enemy weapons with the Gun Gun, and makes the Gun Gun shoot more Gun Guns
 ###
 
-# Create a new ItemPool for our custom Eridium drop
-SparkPatchEntry,(1,1,0,),/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,BalancedItems,0,,((InventoryBalanceData=/Game/Pickups/Eridium/InvBal_Eridium_Stack,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Pickups/Eridium/InvBal_Eridium_Stack"',Weight=(BaseValueConstant=1.0)))
+# Replace all enemy weapons with the Eridian Fabricator (Gun Gun)
+SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=1)))
 
-# Modify the Eridium stack to give 50 Eridium
-SparkPatchEntry,(1,1,0,),/Game/Pickups/Eridium/InvBal_Eridium_Stack.InvBal_Eridium_Stack,MonetaryValue,0,,50
+# Ensure enemies can equip heavy weapons
+SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Balance/Table_Weapon_Equip_Chances,Heavy,Default,((DefaultEquipChance=1.0,EquipChance=1.0))
 
-# Add our custom Eridium drop to enemy death loot
-SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Loot/ItemPool_Enemies_GuaranteedLoot,BalancedItems,0,,((InventoryBalanceData=None,ResolvedInventoryBalanceData=None,Weight=(BaseValueConstant=1.0),ItemPoolData=/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,ResolvedItemPoolData=ItemPoolData'"/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium"'))
+# Make the Gun Gun shoot more Gun Guns
+SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator.Balance_Eridium_Fabricator,ItemPoolList,0,,((ItemPool=ItemPoolData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/ItemPool_Eridium_Fabricator.ItemPool_Eridium_Fabricator"',PoolProbability=(BaseValueConstant=1.0)))
 
-# Set the number of Eridium stacks to drop
-SparkPatchEntry,(1,1,0,),/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,Quantity,0,,(BaseValueConstant=5.0,DataTableValue=(DataTable=None,RowName="",ValueName=""),BaseValueAttribute=None,AttributeInitializer=None,BaseValueScale=1.0)
+# Increase the number of Gun Guns spawned per shot
+SparkEnemiesLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/ItemPool_Eridium_Fabricator.ItemPool_Eridium_Fabricator,Quantity,0,,(BaseValueConstant=5.0,DataTableValue=(DataTable=None,RowName="",ValueName=""),BaseValueAttribute=None,AttributeInitializer=None,BaseValueScale=1.0)

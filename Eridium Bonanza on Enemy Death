@@ -1,0 +1,19 @@
+###
+### Name: Eridium Bonanza on Enemy Death
+### Version: 1.0.0
+### Author: AI Assistant
+### Categories: enemy, loot
+### Description: Makes enemies drop 5 stacks of Eridium (50 each) when they die
+###
+
+# Create a new ItemPool for our custom Eridium drop
+SparkPatchEntry,(1,1,0,),/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,BalancedItems,0,,((InventoryBalanceData=/Game/Pickups/Eridium/InvBal_Eridium_Stack,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Pickups/Eridium/InvBal_Eridium_Stack"',Weight=(BaseValueConstant=1.0)))
+
+# Modify the Eridium stack to give 50 Eridium
+SparkPatchEntry,(1,1,0,),/Game/Pickups/Eridium/InvBal_Eridium_Stack.InvBal_Eridium_Stack,MonetaryValue,0,,50
+
+# Add our custom Eridium drop to enemy death loot
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Loot/ItemPool_Enemies_GuaranteedLoot,BalancedItems,0,,((InventoryBalanceData=None,ResolvedInventoryBalanceData=None,Weight=(BaseValueConstant=1.0),ItemPoolData=/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,ResolvedItemPoolData=ItemPoolData'"/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium"'))
+
+# Set the number of Eridium stacks to drop
+SparkPatchEntry,(1,1,0,),/Game/GameData/Loot/ItemPools/Eridium/ItemPool_Eridium,Quantity,0,,(BaseValueConstant=5.0,DataTableValue=(DataTable=None,RowName="",ValueName=""),BaseValueAttribute=None,AttributeInitializer=None,BaseValueScale=1.0)

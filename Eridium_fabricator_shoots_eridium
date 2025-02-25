@@ -1,8 +1,5 @@
-# Ensure enemies spawn with the Eridian Fabricator in the assault rifle slot
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_AssaultRifle,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=1,BaseValueScale=1)))
+# Replace all enemy weapons with the Eridian Fabricator
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=1)))
 
-# Ensure enemies also have a separate heavy weapon equipped (including the Eridian Fabricator)
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_HeavyWeap,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/_Shared/_Design/Balance/Balance_HeavyWeapon_Generic,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/_Shared/_Design/Balance/Balance_HeavyWeapon_Generic"',Weight=(BaseValueConstant=0.5,BaseValueScale=1)),(InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=0.5,BaseValueScale=1)))
-
-# Modify the Eridian Fabricator to shoot 10x Eridium stacks per shot (each worth 500 Eridium)
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,SpawnedItemPools,0,,((ItemPoolData=/Game/Pickups/Eridium/ItemPool_Eridium_500,ResolvedItemPoolData=ItemPoolData'"/Game/Pickups/Eridium/ItemPool_Eridium_500"',NumItems=(BaseValueConstant=10)))
+# Ensure the Eridian Fabricator is always equipped
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Balance/Table_Weapon_Equip_Chances,Heavy,Default,((DefaultEquipChance=1.0,EquipChance=1.0))

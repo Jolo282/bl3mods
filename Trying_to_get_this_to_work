@@ -1,0 +1,5 @@
+# Replace all enemy weapons with the Eridian Fabricator
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,((InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',Weight=(BaseValueConstant=1)))
+
+# Ensure the Eridian Fabricator is always equipped
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Balance/Table_Weapon_Equip_Chances,Heavy,Default,((DefaultEquipChance=1.0,EquipChance=1.0))

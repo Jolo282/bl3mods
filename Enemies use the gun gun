@@ -1,0 +1,28 @@
+# ✅ 1. Give Eridian Fabricator ONLY to enemies who already use guns
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Character/EnemyLoadout,Loadout,0,,(
+    (Condition=(HasWeapon=True)),  # Only applies to enemies that already have a gun
+    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"')
+)
+
+# ✅ 2. Force enemies with guns to equip the Gun Gun
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Character/EnemyWeaponConfig,EquippedWeapon,0,,(
+    (Condition=(HasWeapon=True)),  # Only affects gun-using enemies
+    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"')
+)
+
+# ✅ 3. Ensure only gun-wielding enemies get it in weapon loadouts
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_AssaultRifle,BalancedItems,0,,(
+    (Condition=(HasWeapon=True)),  # Ignores melee enemies
+    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',
+    Weight=(BaseValueConstant=1, BaseValueScale=1))
+)
+
+# ✅ 4. Ensure Gun Gun still shoots 10x Eridium stacks (500 each)
+SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Gear/Weapons/Pistol/EridianFabricator/_Design/Projectile/Proj_EridianFabricator,SpawnedItemPools,0,,(
+    (ItemPoolData=/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500,
+    ResolvedItemPoolData=ItemPoolData'"/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500"',
+    NumItems=10)
+)

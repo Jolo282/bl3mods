@@ -1,71 +1,48 @@
 ###
 ### Name: Gun Gun Enemies
-### Version: 1.3.5
+### Version: 1.3.6
 ### Author: AI Assistant
 ### Categories: enemy, gear, weapon
-### Description: Replaces all enemy weapons with the Gun Gun (Eridian Fabricator), ensures they use it, removes Eridium costs, and increases fire rate to benefit players.
+### Description: Replaces all enemy weapons with the Gun Gun (Eridian Fabricator), ensures they use it, and removes Eridium costs.
 ###
 
 # 1. Remove ALL existing weapons and ranged items from enemies (Prevents Conflicts)
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Character/EnemyLoadout,Loadout,0,,()
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Character/BPChar_Enemy,InventoryList,0,,()
 
 # 2. Clear all enemy weapon pools (Ensures only Gun Gun is used)
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,()
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_AssaultRifles,BalancedItems,0,,()
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Pistols,BalancedItems,0,,()
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Shotguns,BalancedItems,0,,()
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_SMGs,BalancedItems,0,,()
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_SniperRifles,BalancedItems,0,,()
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,()
 
-# 3. Give the Eridian Fabricator to All Enemies Who Normally Use Guns
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Character/EnemyLoadout,Loadout,0,,(
+# 3. Assign Gun Gun to all enemy loadouts (Forces enemies to spawn with it)
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Character/BPChar_Enemy,InventoryList,0,,(
+    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',
+    Probability=(BaseValueConstant=1.0))
+)
+
+# 4. Force Equip Gun Gun Immediately (Overrides AI weapon preference)
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Character/BPChar_Enemy,EquippedItemList,0,,(
+    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
+    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"')
+)
+
+# 5. Force Gun Gun into Enemy Weapon Pools (Prevents other weapons from appearing)
+SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,(
     (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
     ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',
     Weight=(BaseValueConstant=1.0,BaseValueScale=1.0))
 )
 
-# 4. Ensure Enemies Equip the Gun Gun Immediately
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/Character/EnemyWeaponConfig,EquippedWeapon,0,,(
-    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
-    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',
-    Weight=(BaseValueConstant=1.0,BaseValueScale=1.0))
-)
-
-# 5. Force the Gun Gun into All Enemy Weapon Loadouts (Prevents any other weapons from spawning)
-SparkCharacterLoadedEntry,(1,1,0,MatchAll),/Game/Enemies/_Shared/_Design/ItemPools/ItemPool_COVEnemyUse_Weapons,BalancedItems,0,,(
-    (InventoryBalanceData=/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator,
-    ResolvedInventoryBalanceData=InventoryBalanceData'"/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator"',
-    Weight=(BaseValueConstant=1.0,BaseValueScale=1.0))
-)
-
-# 6a. Ensure Gun Gun Shoots Eridium Stacks Instead of Guns
+# 6a. Modify Gun Gun to Shoot Eridium Stacks Instead of Guns
 SparkPatchEntry,(1,1,0,),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator.Balance_Eridium_Fabricator,ItemPoolList,0,,(
     (ItemPool=ItemPoolData'"/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500"',
     PoolProbability=(BaseValueConstant=1.0))
 )
 
-# 6b. Modify Gun Gun to Fire 10 Eridium Stacks (500 Each)
-SparkPatchEntry,(1,1,0,),/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500,Quantity,0,,(
-    BaseValueConstant=10.0,
-    DataTableValue=(DataTable=None,RowName=None,ValueName=None),
-    BaseValueAttribute=None,
-    AttributeInitializer=None,
-    BaseValueScale=1.0
-)
+# 6b. Modify Gun Gun to Fire 10 Stacks of 500 Eridium Each
+SparkPatchEntry,(1,1,0,),/Game/Pickups/Eridium/ItemPool_Eridium_500.ItemPool_Eridium_500,Quantity,0,,(BaseValueConstant=10.0,BaseValueScale=1.0)
 
-# 7. Allow Enemies to Use Heavy Weapons (Fix AI Behavior)
+# 7. Allow Enemies to Use Heavy Weapons (Fixes AI Restrictions)
 SparkPatchEntry,(1,1,0,),/Game/Enemies/_Shared/_Design/Balance/Table_Weapon_Equip_Chances,Heavy,Default,((DefaultEquipChance=1.0,EquipChance=1.0))
 
 # 8. Remove Eridium Cost for NPCs Using the Gun Gun
 SparkPatchEntry,(1,1,0,),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator.Balance_Eridium_Fabricator,RuntimeGenericPartList.RuntimeGenericPartList[7].PartValueOverride,0,,0
-
-# 9. Increase Enemy Fire Rate with the Gun Gun (2x Speed)
-SparkPatchEntry,(1,1,0,),/Game/Gear/Weapons/HeavyWeapons/Eridian/_Shared/_Design/Balance/Balance_Eridium_Fabricator.Balance_Eridium_Fabricator,WeaponUseModeAttributeEffects,0,,(
-    (AttributeToModify=GbxAttributeData'"/Game/GameData/Weapons/Att_Weapon_FireRate.Att_Weapon_FireRate"',
-    ModifierType=ScaleSimple,
-    ModifierValue=(BaseValueConstant=2.0,
-    DataTableValue=(DataTable=None,RowName=None,ValueName=None),
-    BaseValueAttribute=None,
-    AttributeInitializer=None,
-    BaseValueScale=1.0))
-)
